@@ -1,0 +1,34 @@
+{
+  "name": "p5-soundart",
+  "version": "1.0.0",
+  "description": "Sound frequency visualization using FFT",
+  "main": "app.js",
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "p5": "^0.5.16",
+    "webpack": "^3.8.1"
+  },
+  "devDependencies": {
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/muradkhan101/p5-soundArt.git"
+  },
+  "keywords": [
+    "p5",
+    "FFT",
+    "sound",
+    "visualization"
+  ],
+  "author": "Murad Khan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/muradkhan101/p5-soundArt/issues"
+  },
+  "homepage": "https://github.com/muradkhan101/p5-soundArt#readme"
+}
