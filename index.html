@@ -1,11 +1,15 @@
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>p5 Sound Vis</title>
+    <title>FFT Sound Vis</title>
+    <script async src="./bundle.js"></script>
     <meta name="description" content="Sound art made using FFT">
   </head>
   <body>
+    <label for="audioFile">Upload a sound to visualize</label>
+    <input name ="audioFile" id="audioFile" type="file" accept=".png, .wav, .mp3, audio/*">
+    <canvas id="audioVis" width="600" height="400"></canvas>
   </body>
-  <script src="./bundle.js"></script>
 </html>
