@@ -1,9 +1,16 @@
 import { AudioAnalyzer } from './src/AudioAnalyzer';
-import { FrequencyBarVisualizer } from './src/FrequencyBarVisualizer';
+import { RoundBarVisualizer } from './src/RoundBarVisualizer';
 
 window.onload = () => {
   let audioAnalyzer,
       frequencyBarVisualizer;
+  navigator.mediaDevices.getUserMedia({audio: true, video: false}).then(src => {
+    audioAnalyzer = new AudioAnalyzer(src);
+    audioAnalyzer.connectNewSource().then(next => {
+      frequencyBarVisualizer = new RoundBarVisualizer(document.getElementById('audioVis'), audioAnalyzer)
+      frequencyBarVisualizer.draw();
+    })
+  })
   let fileUpload = document.getElementById('audioFile').addEventListener('change', function(e) {
     let song = e.target.files[0];
     let url = window.URL.createObjectURL(song);
@@ -12,8 +19,14 @@ window.onload = () => {
 
     if (!audioAnalyzer) {
       audioAnalyzer = new AudioAnalyzer(audioSrc);
-      audioAnalyzer.observable.subscribe(next => {
-        frequencyBarVisualizer = new FrequencyBarVisualizer(document.getElementById('audioVis'), audioAnalyzer)
+      audioAnalyzer.connectNewSource().then(next => {
+        frequencyBarVisualizer = new RoundBarVisualizer(document.getElementById('audioVis'), audioAnalyzer)
+        frequencyBarVisualizer.draw();
+      })
+    } else {
+      audioAnalyzer.updateSource(audioSrc);
+      audioAnalyzer.connectNewSource().then(next => {
+        frequencyBarVisualizer = new RoundBarVisualizer(document.getElementById('audioVis'), audioAnalyzer)
         frequencyBarVisualizer.draw();
       })
     }

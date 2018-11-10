@@ -15,16 +15,19 @@ export class RoundBarVisualizer {
     this.ctx.fillStyle = 'rgb(61,61,61)';
     let barWidth = this.canvas.width / this.audioAnalyzer.analyzer.frequencyBinCount,
         barHeight;
+    let angle = 0;
     for (let i = 0; i < this.audioAnalyzer.analyzer.frequencyBinCount; ++i) {
       barHeight = this.map(data[i], 0, this.canvas.height / 2, 0, 255);
       this.ctx.fillStyle = `rgb(40, ${Math.min(data[i]/2 + 100, 254)}, 255)`;
 
-      // const rotate = angle + Math.PI / 2;
-      // const x = Math.cos(angle) * 50;
-      // const y = Math.sin(angle) * 50;
+      const rotate = angle + Math.PI / 2;
+      const x = Math.cos(angle) * 50;
+      const y = Math.sin(angle) * 50;
+      this.ctx.rotate(rotate);
       this.ctx.fillRect(0, 0, barWidth, barHeight);
-      // angle += (2 * Math.PI) / this.audioAnalyzer.analyzer.frequencyBinCount
-      this.ctx.rotate((Math.PI / 180) * (390 / this.audioAnalyzer.analyzer.frequencyBinCount));
+      this.ctx.rotate(-rotate);
+      angle += (2.025 * Math.PI) / this.audioAnalyzer.analyzer.frequencyBinCount
+      // this.ctx.rotate((Math.PI / 180) * (390 / this.audioAnalyzer.analyzer.frequencyBinCount));
     }
     this.ctx.restore();
     this.drawVisual = requestAnimationFrame(this.draw);

@@ -1,31 +1,29 @@
-import { Observable } from 'rxjs/Observable';
 
 export class AudioAnalyzer {
   constructor(source) {
     this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     this.analyzer = this.audioCtx.createAnalyser();
-    this.source;
-    this.data;
-
-    this.observable = Observable.create(obs => {
-      this.connectNewSource(source);
-
-      obs.next({done: true})
-    });
-
+    this.audioSource = source;
     this.connectNewSource = this.connectNewSource.bind(this);
+    
+    this.source = undefined;
+    this.data = undefined;
   }
 
-  connectNewSource(source) {
-    // Set up audio input
-    if (source instanceof HTMLElement) {
-      this.source = this.audioCtx.createMediaElementSource(source);
-      this.analyzer.connect(this.audioCtx.destination);
-    } else {
-      this.source = this.audioCtx.createMediaStreamSource(source);
-    }
-    // Pass data through analyzer
-    this.source.connect(this.analyzer);
+  connectNewSource() {
+    const source = this.audioSource;
+    return new Promise((resolve, reject) => {
+      // Set up audio input
+      if (source instanceof HTMLElement) {
+        this.source = this.audioCtx.createMediaElementSource(source);
+        this.analyzer.connect(this.audioCtx.destination);
+      } else {
+        this.source = this.audioCtx.createMediaStreamSource(source);
+      }
+      // Pass data through analyzer
+      this.source.connect(this.analyzer);
+      resolve(true);
+    })
   }
 
   collectData(size = 2048, type='b') {
@@ -37,6 +35,9 @@ export class AudioAnalyzer {
     return this.getData();
   }
 
+  updateSource(src) {
+    this.audioSource = src;
+  }
   getData() {
     return this.data;
   }
