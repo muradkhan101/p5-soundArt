@@ -17,10 +17,12 @@ export class AudioAnalyzer {
   }
 
   connectNewSource(source) {
-
     // Set up audio input
-    this.source = this.audioCtx.createMediaElementSource(source);
-
+    if (source instanceof HTMLElement) {
+      this.source = this.audioCtx.createMediaElementSource(source);
+    } else {
+      this.source = this.audioCtx.createMediaStreamSource(source);
+    }
     // Pass data through analyzer
     this.source.connect(this.analyzer);
     this.analyzer.connect(this.audioCtx.destination);
