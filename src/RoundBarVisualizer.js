@@ -22,7 +22,7 @@ export class RoundBarVisualizer {
       // const rotate = angle + Math.PI / 2;
       // const x = Math.cos(angle) * 50;
       // const y = Math.sin(angle) * 50;
-      this.ctx.fillRect(10, 0, barWidth, barHeight);
+      this.ctx.fillRect(0, 0, barWidth, barHeight);
       // angle += (2 * Math.PI) / this.audioAnalyzer.analyzer.frequencyBinCount
       this.ctx.rotate((Math.PI / 180) * (390 / this.audioAnalyzer.analyzer.frequencyBinCount));
     }

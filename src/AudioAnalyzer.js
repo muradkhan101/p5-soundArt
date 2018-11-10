@@ -20,12 +20,12 @@ export class AudioAnalyzer {
     // Set up audio input
     if (source instanceof HTMLElement) {
       this.source = this.audioCtx.createMediaElementSource(source);
+      this.analyzer.connect(this.audioCtx.destination);
     } else {
       this.source = this.audioCtx.createMediaStreamSource(source);
     }
     // Pass data through analyzer
     this.source.connect(this.analyzer);
-    this.analyzer.connect(this.audioCtx.destination);
   }
 
   collectData(size = 2048, type='b') {
