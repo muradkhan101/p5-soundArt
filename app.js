@@ -1,6 +1,3 @@
-import { AudioAnalyzer } from './src/AudioAnalyzer';
-import { RoundBarVisualizer } from './src/RoundBarVisualizer';
-
 window.onload = () => {
   let audioAnalyzer,
       frequencyBarVisualizer;

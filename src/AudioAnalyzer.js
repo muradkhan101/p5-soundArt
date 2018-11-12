@@ -1,5 +1,5 @@
 
-export class AudioAnalyzer {
+class AudioAnalyzer {
   constructor(source) {
     this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     this.analyzer = this.audioCtx.createAnalyser();
